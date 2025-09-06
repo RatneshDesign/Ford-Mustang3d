@@ -110,6 +110,18 @@ function Model({ url, scale = 1 }) {
         if (!groupRef.current) return;
 
         const ctx = gsap.context(() => {
+            gsap.timeline()
+                .from(groupRef.current.position, {
+                    y: -2, // car comes from below
+                    duration: 1.2,
+                    ease: "power2.out"
+                })
+                .from(groupRef.current.rotation, {
+                    y: -Math.PI / 2, // rotate in
+                    duration: 0.8,
+                    ease: "power2.out"
+                }, "<"); // "<" = o
+
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#scroll-section",
@@ -136,12 +148,12 @@ function Model({ url, scale = 1 }) {
                 .add("section4")
                 .to(groupRef.current.position, { x: -0.5, y: -0.5, z: -2, duration: 1 }, "section4")
                 .to(groupRef.current.rotation, { x: -0.1, y: 0.3, z: 0.02, duration: 1 }, "section4")
-       
+
                 .add("section5")
                 .to(groupRef.current.position, { x: -0.5, y: -0.5, z: -2, duration: 1 }, "section5")
-                .to(groupRef.current.rotation, { x: -0.1, y: 0.3, z: 0.02, duration: 1 }, "section5");
-       
-                // y    // z        // x
+                .to(groupRef.current.rotation, { x: -0.1, y: 6.6, z: 0.02, duration: 1 }, "section5");
+
+            // y    // z        // x
         });
 
         return () => ctx.revert();
@@ -159,7 +171,7 @@ function Home() {
     return (
         <>
 
-            <div id="scroll-section" style={{ height: "500vh" }} className="w-screen flex flex-col">
+            <div id="scroll-section" style={{ height: "600vh" }} className="w-screen flex flex-col">
 
                 <span className={`herofont flex absolute text-[25rem] w-screen h-screen items-center justify-center`}>
                     <h1 className="font-bold z-[-1]">She</h1>
